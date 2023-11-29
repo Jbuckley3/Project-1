@@ -34,3 +34,48 @@ As a player I want:
 
 Wireframe:
 ![IMG_1038](https://github.com/Jbuckley3/Project-1/assets/121533653/3e419acb-c3ec-499f-8c3e-b3b032f7cb0a)
+
+Pseudocode:
+
+//Choose difficulty
+
+//Beginner (8x8 or 9x9 with 10 mines), Intermediate (16x16 with 40 mines) and Expert (30x16 with 99 mines).
+
+// Define game variables
+
+// Initialize the game
+
+// Function to create the Minesweeper board
+
+// Function to render the initial state of the board
+
+// Populate the grid with mines randomly
+
+// Calculate and set the number of adjacent mines for each cell
+
+
+// Function to render the Minesweeper board
+
+// Set up event listeners for each grid cell (click to reveal, right-click to flag
+
+// Event listener for grid cell clicks
+
+// Event listener for right-clicks (to flag cells)
+
+// Function to handle left-click on a cell
+
+  // Check if the clicked element is a grid cell
+    
+  // Handle revealing the clicked cell
+    
+  // Check for game over or victory conditions
+
+// Function to handle right-click on a cell
+
+  // Check if the clicked element is a grid cell
+    
+  // Handle flagging/unflagging the clicked cell
+   
+
+// Game logic functions (revealing cells, flagging cells, checking for victory/defeat)
+
