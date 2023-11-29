@@ -14,7 +14,7 @@ As a player I want:
 
 -to reveal a cell by clicking on it, so that I can uncover the content underneath.
 
--to see numbers in revealed cells indicating the number of adjacent mines, so that I can make informed decisions about where to click.
+-to see numbers in revealed cells indicating the number of adjacent mines. 
 
 -the game to end in defeat if I click on a cell containing a mine.
 
@@ -26,11 +26,11 @@ As a player I want:
 
 -to be able to start a new game, so that I can play again without having to refresh the entire page.
 
--to have different difficulty levels (easy, medium, hard), so that I can choose a challenge that suits my skill level.
+-to have different difficulty levels (easy, medium, hard).
 
 -to see a timer that tracks the duration of my current game, so that I can challenge myself to improve my speed.
 
--the game to provide feedback or animation when I win or lose, so that I can easily recognize the game outcome.
+-the game to provide feedback or animation when I win or lose.
 
 Wireframe:
 ![IMG_1038](https://github.com/Jbuckley3/Project-1/assets/121533653/3e419acb-c3ec-499f-8c3e-b3b032f7cb0a)
@@ -45,14 +45,13 @@ Pseudocode:
 
 // Initialize the game
 
-// Function to create the Minesweeper board
+// Create the board
 
-// Function to render the initial state of the board
+// Render the initial state of the board
 
 // Populate the grid with mines randomly
 
 // Calculate and set the number of adjacent mines for each cell
-
 
 // Function to render the Minesweeper board
 
