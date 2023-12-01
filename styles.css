@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.minesweeper-board {
+    display: grid;
+    grid-template-columns: repeat(8, 40px); /* Adjust the size as needed */
+    grid-template-rows: repeat(8, 40px); /* Adjust the size as needed */
+    gap: 1px; /* Gap between grid cells */
+}
+
+.cell {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border: 1px solid #ccc; /* Cell border color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cell:hover {
+    background-color: #eee; /* Cell background color on hover */
+}
