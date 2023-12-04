@@ -1,20 +1,104 @@
-//logic
-
 document.addEventListener('DOMContentLoaded', function () {
     const board = document.getElementById('minesweeper-board');
+    const resetButton = document.getElementById('reset-button');
 
-    // Create the grid
-    for (let row = 0; row < 8; row++) {
-        for (let col = 0; col < 8; col++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.dataset.row = row;
-            cell.dataset.col = col;
-            board.appendChild(cell);
+    // Initialize the game
+    initializeGame();
+
+    // Reset button click event
+    resetButton.addEventListener('click', initializeGame);
+
+    function initializeGame() {
+        // Clear the board and set up a new game
+        clearBoard();
+        createGrid();  // New addition: Create the initial grid
+        placeMines();
+        calculateAdjacentMineCounts();
+        renderBoard();
+    }
+
+    function clearBoard() {
+        // Clear the board content and any game state
+        // Implement this function based on your data structure
+    }
+
+    function createGrid() {
+        // Create the initial grid
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                board.appendChild(cell);
+            }
         }
     }
 
-    // Add event listener to each cell (for demonstration purposes)
+    function placeMines() {
+        // Randomly place mines on the board
+        // Implement this function based on your data structure
+        const totalMines = 10; // Adjust the number of mines as needed
+        const cells = document.querySelectorAll('.cell');
+        const cellCount = cells.length;
+    
+        // Create an array to store mine positions
+        const minePositions = [];
+         // Function to check if a cell already has a mine
+        const isMineAlreadyPlaced = (row, col) => {
+            return minePositions.some(pos => pos.row === row && pos.col === col);
+        };
+    }
+
+    const isMineAlreadyPlaced = (row, col) => {
+        return minePositions.some(pos => pos.row === row && pos.col === col);
+    };
+
+    // Randomly place mines
+    for (let i = 0; i < totalMines; i++) {
+        let randomCell;
+
+        do {
+            // Generate random cell indices
+            const randomIndex = Math.floor(Math.random() * cellCount);
+            randomCell = cells[randomIndex];
+
+            // Extract row and column indices from the dataset
+            const row = parseInt(randomCell.dataset.row);
+            const col = parseInt(randomCell.dataset.col);
+
+            // Check if a mine is already placed in the selected cell
+        } while (isMineAlreadyPlaced(row, col));
+
+        // Mark the cell as a mine by adding a 'mine' class
+        randomCell.classList.add('mine');
+
+        // Store the mine position in the array
+        minePositions.push({ row, col });
+    }
+}
+
+    function calculateAdjacentMineCounts() {
+        // Calculate and store the number of adjacent mines for each cell
+        // Implement this function based on your data structure
+    }
+
+    function renderBoard() {
+        // Render the game board based on the current state
+        // Implement this function based on your data structure
+    }
+
+    // Add event listener for cell clicks
+    board.addEventListener('click', handleCellClick);
+});
+
+function handleCellClick(event) {
+    // Implement logic to handle cell clicks
+    // Check if the clicked cell is a mine, empty, or numbered
+    // Update the game state accordingly
+}
+
+    // Add event listener to each cell (showing which cell I click on)
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
         cell.addEventListener('click', function () {
@@ -22,62 +106,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-//Choose difficulty
-//Beginner (8x8 or 9x9 with 10 mines), Intermediate (16x16 with 40 mines) and Expert (30x16 with 99 mines).
-
-// Define game variables
-// Initialize the game
-// Function to create the Minesweeper board
-// Function to render the initial state of the board
-
-// Populate the grid with mines randomly
-// Calculate and set the number of adjacent mines for each cell
-
-
-// Function to render the Minesweeper board
-    
-// Set up event listeners for each grid cell (click to reveal, right-click to flag)
-// Event listener for grid cell clicks
-// Event listener for right-clicks (to flag cells)
-
-// Function to handle left-click on a cell
-    // Check if the clicked element is a grid cell
-    // Handle revealing the clicked cell
-    // Check for game over or victory conditions
-
-// Function to handle right-click on a cell
-    // Check if the clicked element is a grid cell
-    // Handle flagging/unflagging the clicked cell
-   
-
-// Game logic functions (revealing cells, flagging cells, checking for victory/defeat)
-
-/*
-Game Rules:
-
-1. Game Board:
--The game is played on a rectangular grid of squares.
--Some squares contain hidden mines, while others are safe.
-
-2. Game Mechanics:
--The player can reveal a square by clicking on it.
--If a revealed square contains a mine, the game ends.
--If a revealed square does not contain a mine, it shows the number of adjacent squares containing mines.
-
-2a. Flagging Mines:
--The player can flag squares they suspect contain mines.
--Flagged squares cannot be revealed until unflagged by the player.
-
-3. Winning the Game:
--The player wins by successfully revealing all safe squares without clicking on any mines.
--The game ends in victory when all safe squares are revealed.
-
-4. Losing the Game:
--The game ends in defeat if the player clicks on a square containing a mine.
-
-5. Game Board Size:
-- The size of the game board and the number of mines can be adjusted to control difficulty.
-
-*/
 
