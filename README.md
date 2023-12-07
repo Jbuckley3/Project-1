@@ -2,11 +2,13 @@
 Game Title: Minesweeper
 
 Overview:
+
 A single-player puzzle game where the player's objective is to clear a rectangular board 
 containing hidden "mines" or bombs without detonating any of them. The game is played on a grid, and the player must 
 use logical deduction to reveal safe squares and avoid the mines.
 
 Technologies used:
+
 HTML CSS Javascript
 
 
@@ -44,6 +46,7 @@ Wireframe:
 Planned future enhancements:
 - Add the option to choose difficulty by changing number of mines and game board size.
 - A Leaderboard that keeps track of high scores 
+- Enhanced Styling
 
 
 

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageContainer = document.getElementById('message-container');
     let minePositions = [];
     let flaggedMines = 0;
+    let revealedCells = 0;
 
     // Initialize the game
     initializeGame();
@@ -19,8 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
         placeMines();
         calculateAdjacentMineCounts();
         renderBoard();
-        // Reset the mines left counter
+        // Reset the mines left counter and revealed cells count
         flaggedMines = 0;
+        revealedCells = 0;
         updateMinesLeftCounter();
         // Clear any previous messages
         messageContainer.textContent = '';
@@ -104,14 +106,34 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        clickedCell.classList.add('revealed');
+        const stack = []; // Stack to keep track of cells to reveal
+        stack.push(clickedCell);
 
-        const adjacentMines = parseInt(clickedCell.dataset.adjacentMines || 0);
+        while (stack.length > 0) {
+            const currentCell = stack.pop();
 
-        if (adjacentMines === 0) {
-            for (let i = -1; i <= 1; i++) {
-                for (let j = -1; j <= 1; j++) {
-                    revealEmptyCells(row + i, col + j);
+            if (!currentCell.classList.contains('revealed')) {
+                currentCell.classList.add('revealed');
+                revealedCells++;
+
+                const adjacentMines = parseInt(currentCell.dataset.adjacentMines || 0);
+
+                if (adjacentMines === 0) {
+                    // Add neighboring cells to the stack
+                    for (let i = -1; i <= 1; i++) {
+                        for (let j = -1; j <= 1; j++) {
+                            const neighborRow = parseInt(currentCell.dataset.row) + i;
+                            const neighborCol = parseInt(currentCell.dataset.col) + j;
+
+                            if (i === 0 && j === 0) continue;
+
+                            const neighborCell = document.querySelector(`.cell[data-row="${neighborRow}"][data-col="${neighborCol}"]`);
+
+                            if (neighborCell && !neighborCell.classList.contains('revealed') && !neighborCell.classList.contains('flagged')) {
+                                stack.push(neighborCell);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -149,6 +171,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 cell.innerHTML = '';
             }
         });
+
+        if (revealedCells === (64 - minePositions.length)) {
+            showMessage('Congratulations! You have won!');
+            revealMines();
+        }
     }
 
     function updateMinesLeftCounter() {
@@ -171,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.type === 'contextmenu') {
             if (!clickedCell.classList.contains('revealed')) {
                 clickedCell.classList.toggle('flagged');
-                // Update the flagged mines count
                 if (clickedCell.classList.contains('flagged')) {
                     flaggedMines++;
                 } else {
@@ -182,21 +208,16 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             if (!clickedCell.classList.contains('flagged') && !clickedCell.classList.contains('revealed')) {
                 if (minePositions.some(pos => pos.row === row && pos.col === col)) {
-                    // Reveal all mine cells on the board
                     minePositions.forEach(pos => {
                         const mineCell = document.querySelector(`.cell[data-row="${pos.row}"][data-col="${pos.col}"]`);
                         mineCell.classList.add('revealed');
                         mineCell.innerHTML = '💣';
                     });
-
-                    // Trigger game over message
                     showMessage('Game Over! You clicked on a mine.');
-                    // Change the background color to red for mine cells
                     revealMines();
                     setTimeout(() => {
                         clickedCell.classList.add('revealed', 'mine');
                         clickedCell.innerHTML = '💣';
-                        //alert('Game Over! You clicked on a mine.');
                     }, 0);
                 } else {
                     revealEmptyCells(row, col);
