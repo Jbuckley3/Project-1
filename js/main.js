@@ -99,37 +99,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function revealEmptyCells(row, col) {
+        // Get all cells on the board
         const cells = document.querySelectorAll('.cell');
+        
+        // Find the clicked cell using its row and column values
         const clickedCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-
+    
+        // Check if the clicked cell is valid for revealing
         if (!clickedCell || clickedCell.classList.contains('revealed') || clickedCell.classList.contains('flagged')) {
             return;
         }
-
-        const stack = []; // Stack to keep track of cells to reveal
+    
+        // Create a stack to keep track of cells to reveal
+        const stack = [];
         stack.push(clickedCell);
-
+    
+        // Use a while loop to iterate through the stack until it's empty
         while (stack.length > 0) {
+            // Pop the last cell from the stack
             const currentCell = stack.pop();
-
+    
+            // Check if the cell has not been revealed
             if (!currentCell.classList.contains('revealed')) {
+                // Mark the cell as revealed
                 currentCell.classList.add('revealed');
-                revealedCells++;
-
+                revealedCells++; // Increment the count of revealed cells
+    
+                // Get the number of adjacent mines for the current cell
                 const adjacentMines = parseInt(currentCell.dataset.adjacentMines || 0);
-
+    
+                // If there are no adjacent mines, add neighboring cells to the stack
                 if (adjacentMines === 0) {
-                    // Add neighboring cells to the stack
                     for (let i = -1; i <= 1; i++) {
                         for (let j = -1; j <= 1; j++) {
                             const neighborRow = parseInt(currentCell.dataset.row) + i;
                             const neighborCol = parseInt(currentCell.dataset.col) + j;
-
+    
+                            // Skip the current cell
                             if (i === 0 && j === 0) continue;
-
+    
+                            // Find the neighboring cell in the DOM
                             const neighborCell = document.querySelector(`.cell[data-row="${neighborRow}"][data-col="${neighborCol}"]`);
-
+    
+                            // Check if the neighboring cell is valid for revealing
                             if (neighborCell && !neighborCell.classList.contains('revealed') && !neighborCell.classList.contains('flagged')) {
+                                // Add the neighboring cell to the stack for further processing
                                 stack.push(neighborCell);
                             }
                         }
@@ -138,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-
+    
     function revealMines() {
         minePositions.forEach(pos => {
             const mineCell = document.querySelector(`.cell[data-row="${pos.row}"][data-col="${pos.col}"]`);
