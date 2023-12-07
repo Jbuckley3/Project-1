@@ -4,6 +4,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    
 }
 
 .minesweeper-board {
@@ -11,6 +12,7 @@ body {
     grid-template-columns: repeat(8, 40px);
     grid-template-rows: repeat(8, 40px);
     gap: 1px;
+    
 }
 
 .cell {
@@ -26,20 +28,34 @@ body {
 }
 
 .cell:hover {
-    background-color: #eee;
+    background-color: lightgray;
 }
 
-.cell.mine {
+.cell.mine.revealed {
     background-color: #f00;
 }
 
 .cell.revealed {
-    background-color: #ccc; /* background color for revealed cells */
-    color: #000; /* text color for revealed cells */
+    background-color: #ccc;
+    color: #000;
 }
-
 
 .cell.flagged::before {
     content: '🚩';
     color: #00f;
+}
+
+.reset-button {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.minesweeper-container {
+    text-align: center;
+}
+
+.minesweeper-heading {
+    margin-bottom: 20px;
 }
